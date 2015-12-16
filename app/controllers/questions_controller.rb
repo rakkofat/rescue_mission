@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answers = @question.answers.all.order(created_at: :desc)
   end
 
   def new
@@ -21,6 +22,28 @@ class QuestionsController < ApplicationController
     else
       render action: 'new'
     end
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    @question.update(question_params)
+
+    if @question.save
+      redirect_to @question, notice: 'Question was successfully updated.'
+    else
+      render action: 'new'
+    end
+  end
+
+  def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+
+    redirect_to questions_path
   end
 
   private

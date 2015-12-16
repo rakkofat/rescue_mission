@@ -5,13 +5,37 @@
 <% end %>
 
 <table>
-
-  <tbody>
+  <thead>
     <tr>
-      <td><%= @question.title %></td>
+      <th>
+        <%= @question.title %>
+      </th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
       <td><%= @question.description %></td>
     </tr>
+    <tr>
+      <td>
+        <%= link_to "Edit this question", edit_question_path %>
+      </td>
+      <td>
+        <%= link_to "Destroy", @question, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Answers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @answers.each do |answer| %>
+    <tr><td><%= answer.description %></td></tr>
+    <% end %>
   </tbody>
 </table>
